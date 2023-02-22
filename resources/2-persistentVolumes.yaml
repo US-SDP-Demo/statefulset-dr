@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: pv-azuredisk-zone1
   labels:
-    zone: "1"
+    topology.kubernetes.io/zone: eastus-1
     app: nginx
 spec:
   capacity:
@@ -11,6 +11,14 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values:
+          - eastus-1
   storageClassName: managed-csi
   csi:
     driver: disk.csi.azure.com
@@ -24,7 +32,7 @@ kind: PersistentVolume
 metadata:
   name: pv-azuredisk-zone2
   labels:
-    zone: "2"
+    topology.kubernetes.io/zone: eastus-2
     app: nginx
 spec:
   capacity:
@@ -32,6 +40,14 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values:
+          - eastus-2
   storageClassName: managed-csi
   csi:
     driver: disk.csi.azure.com
@@ -45,7 +61,7 @@ kind: PersistentVolume
 metadata:
   name: pv-azuredisk-zone3
   labels:
-    zone: "3"
+    topology.kubernetes.io/zone: eastus-3
     app: nginx
 spec:
   capacity:
@@ -53,6 +69,14 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values:
+          - eastus-3
   storageClassName: managed-csi
   csi:
     driver: disk.csi.azure.com
